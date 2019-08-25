@@ -42,6 +42,11 @@ theme_set(theme_minimal() +
                   axis.title.y = element_text(colour = "darkgreen", size = 12)))
 
 
+
+# reading in rds from web
+file_url <- "https://github.com/JaseZiv/Boomers-vs-USA-Tweets/blob/master/data/boomers_usa_tweets.rds?raw=true"
+bball_tweets <- readRDS(url(file_url))
+
 bball_tweets <- readRDS("../data/boomers_usa_tweets.rds")
 
 
@@ -68,6 +73,8 @@ bball_tweets <- bball_tweets %>%
   filter(created_date >= '2019-08-22')
 ```
 
+***
+
 If the tweet was recorded after `2019-08-24 04:00:00 UTC` (tip-off time for game 2), it was classed as a tweet in `Game2 Starts`. This allows us to compare tweets leading in to the historic second game with those that occurred during and after the magical night.
 
 ```{r, include=FALSE, warning=FALSE, message=FALSE, echo=FALSE}
@@ -77,6 +84,10 @@ bball_tweets <- bball_tweets %>%
   mutate(after_win = ifelse(created_at > '2019-08-24 04:00:00', "Game2 Starts", "Before Game2 Starts"))
 
 ```
+
+***
+
+## Tweet Analysis 
 
 Looking at all tweets since game 1, we can see that game 2 had more tweets per hour. No doubt the shock result played a massive part in this.
 
@@ -106,7 +117,7 @@ The most retweeted tweet from the period analysed came from `r bball_tweets %>% 
 >Patty Mills in the 4th quarter is a piece of art 🔥\n\n#BoomersUSA @SBSVICELAND @SBSOnDemand
 
 
-# Words Analysis
+## Tweet Words Used
 
 Before we can measure the sentiments of tweets, the tweet strings need to be split into 'tokens' (or individual words).
 
@@ -213,6 +224,7 @@ tweet_words_counts %>%
 ```
 
 
+## Tweet Sentiment Analysis
 Once the tokens have been separated, a sentiment score can be calculated.
 
 The method that will be used is the common lexicon for sentiment analysis created by Finn Årup Nielsen (http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010), called the *AFINN* lexicon. Words that are more positive (say, "awesome" for example) are given positive score further from 0 than more negative words (like "devastated"), which are given socres further below zero.
