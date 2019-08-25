@@ -34,6 +34,15 @@ boomers_joined <- boomers_joined %>%
   distinct(status_id, .keep_all = T) %>% 
   distinct(text, .keep_all = T)
 
+boomers_joined <- boomers_joined %>% 
+  select(status_id, created_at, screen_name, text, source, favorite_count, retweet_count)
+
 
 saveRDS(boomers_joined, "data/boomers_usa_tweets.rds")
+
+write.csv(boomers_joined, "data/boomers_usa_tweets.csv", row.names = F)
+
+
+
+
 

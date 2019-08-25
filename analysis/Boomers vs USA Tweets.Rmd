@@ -50,11 +50,6 @@ bball_tweets <- readRDS(url(file_url))
 bball_tweets <- readRDS("../data/boomers_usa_tweets.rds")
 
 
-# select only necessary variables
-bball_tweets <- bball_tweets %>% 
-  select(status_id, created_at, screen_name, text, source, display_text_width, reply_to_status_id, favorite_count, retweet_count, hashtags, media_type, mentions_screen_name, lang, followers_count, verified)
-
-
 # separate created_at variable into date and time variables
 bball_tweets <- bball_tweets %>% separate(col = created_at, into = c("created_date", "created_time"), sep = "\\s", remove = FALSE)
 
